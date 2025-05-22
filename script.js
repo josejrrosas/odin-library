@@ -18,7 +18,9 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 //test
-addBookToLibrary("1984", "George Orwell", 328, true);
+addBookToLibrary("201", "Bib Gibson", 544, false);
+addBookToLibrary("326", "Jimmy Jones foo", 23, true);
+addBookToLibrary("420", "Lawd Mercy", 1511, false);
 console.log(myLibrary);
 
 // append books to #book-container //

@@ -38,9 +38,11 @@ form {
 
 #book-container {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  align-items: center;
 }
 
 .book-card {
