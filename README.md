@@ -6,14 +6,14 @@ A small web app that lets users add, display, and manage books in a virtual libr
 
 ## 🔗 Live Preview
 
-[👉 View the live project here](https://josejrrosas.github.io/Odin-Library/)
+[👉 View the live project here](https://josejrrosas.github.io/odin-library/)
 
 ---
 
 ## 🧱 Project Objectives
 
 - Practice using **objects** and **object constructors** in JavaScript.
-- Understand and apply **prototypal inheritance** (optional).
+- Understand and apply **prototypal inheritance**.
 - Use **DOM manipulation** to display and update content.
 - Build an interactive and responsive user interface.
 - Store book data in memory using arrays.
