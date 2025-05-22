@@ -1,5 +1,3 @@
-console.log("JS is running");
-
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -31,9 +29,15 @@ const bookContainer = document.getElementById("book-container");
 // append books to #book-container //
 function displayBook(book) {
   const newBookDiv = document.createElement("div");
+  const newBookBtn = document.createElement("button");
+
   newBookDiv.className = "books";
   newBookDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages. Read: ${book.read}`;
   bookContainer.appendChild(newBookDiv);
+
+  newBookBtn.className = "bookDelete"
+  newBookBtn.textContent = 'Delete'
+  newBookDiv.appendChild(newBookBtn);
 }
 
 myLibrary.forEach(displayBook);
