@@ -1,3 +1,5 @@
+console.log("JS is running");
+
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -19,10 +21,12 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 //test
-addBookToLibrary("201", "Bib Gibson", 544, false);
-addBookToLibrary("326", "Jimmy Jones foo", 23, true);
-addBookToLibrary("420", "Lawd Mercy", 1511, false);
+addBookToLibrary("Googly Eyes", "Bib Gibson", 544, false);
+addBookToLibrary("Stupid Bob Show", "Jimmy Jones foo", 23, true);
+addBookToLibrary("Crucial Moment", "Lawd Mercy", 1511, false);
 console.log(myLibrary);
+
+const bookContainer = document.getElementById("book-container");
 
 // append books to #book-container //
 function displayBook(book) {
@@ -34,7 +38,6 @@ function displayBook(book) {
 
 myLibrary.forEach(displayBook);
 
-
 const bookFormButton = document.getElementById("new-book-btn");
 const bookForm = document.getElementById("book-form");
 
@@ -43,7 +46,6 @@ bookFormButton.addEventListener("click", function () {
   bookForm.classList.toggle("hidden");
 });
 
-
 //add functionality to form submit Button when clicked
 bookForm.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -51,7 +53,9 @@ bookForm.addEventListener("submit", function (event) {
   const author = document.getElementById("author").value;
   const pages = document.getElementById("pages").value;
   const read = document.getElementById("read").checked;
-  addBookToLibrary(title, author, pages, read);
+
+  const newBook = addBookToLibrary(title, author, pages, read);
   displayBook(newBook);
   bookForm.reset();
 });
+
