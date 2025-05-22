@@ -1,5 +1,5 @@
 const myLibrary = [];
-
+// -------------------------------------------------------------------------
 function Book(title, author, pages, read) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
@@ -10,7 +10,7 @@ function Book(title, author, pages, read) {
     (this.pages = pages),
     (this.read = read);
 }
-
+// -------------------------------------------------------------------------
 // create new instance of books and add to mylibrary array
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
@@ -18,39 +18,57 @@ function addBookToLibrary(title, author, pages, read) {
   return newBook; // so we can use it immediately
 }
 
+// -------------------------------------------------------------------------
 //test
 addBookToLibrary("Googly Eyes", "Bib Gibson", 544, false);
 addBookToLibrary("Stupid Bob Show", "Jimmy Jones foo", 23, true);
 addBookToLibrary("Crucial Moment", "Lawd Mercy", 1511, false);
 console.log(myLibrary);
-
+// -------------------------------------------------------------------------
 const bookContainer = document.getElementById("book-container");
-
 // append books to #book-container //
 function displayBook(book) {
   const newBookDiv = document.createElement("div");
-  const newBookBtn = document.createElement("button");
-
   newBookDiv.className = "books";
-  newBookDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages. Read: ${book.read}`;
-  bookContainer.appendChild(newBookDiv);
 
-  newBookBtn.className = "bookDelete"
-  newBookBtn.textContent = 'Delete'
-  newBookDiv.appendChild(newBookBtn);
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = "bookDelete";
+  deleteBtn.textContent = "Delete";
+  deleteBtn.setAttribute("data-id", book.id);
+
+  
+  deleteBtn.addEventListener("click", function () {
+    const idToRemove = this.getAttribute("data-id");
+    const index = myLibrary.findIndex((b) => b.id === idToRemove);
+    if (index !== -1) {
+      myLibrary.splice(index, 1);
+    }
+    renderBooks(); // re-render the list
+  });
+
+  newBookDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages. Read: ${book.read}`;
+  newBookDiv.appendChild(deleteBtn);
+  bookContainer.appendChild(newBookDiv);
 }
 
-myLibrary.forEach(displayBook);
+// -------------------------------------------------------------------------
+function renderBooks() {
+  bookContainer.innerHTML = ""; // clear existing DOM
+  myLibrary.forEach(displayBook); // re-render
+}
 
+
+// -------------------------------------------------------------------------
 const bookFormButton = document.getElementById("new-book-btn");
 const bookForm = document.getElementById("book-form");
 
-//add functionality to Add Book Button when clicked
+//functionality to Add Book Button when clicked
 bookFormButton.addEventListener("click", function () {
   bookForm.classList.toggle("hidden");
 });
 
-//add functionality to form submit Button when clicked
+// -------------------------------------------------------------------------
+//functionality to form submit Button when clicked
 bookForm.addEventListener("submit", function (event) {
   event.preventDefault();
   const title = document.getElementById("title").value;
@@ -58,8 +76,11 @@ bookForm.addEventListener("submit", function (event) {
   const pages = document.getElementById("pages").value;
   const read = document.getElementById("read").checked;
 
-  const newBook = addBookToLibrary(title, author, pages, read);
-  displayBook(newBook);
+  addBookToLibrary(title, author, pages, read);
+  renderBooks(); 
   bookForm.reset();
 });
 
+// -------------------------------------------------------------------------
+
+renderBooks();
