@@ -15,6 +15,7 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
+  return newBook; // so we can use it immediately
 }
 
 //test
@@ -24,15 +25,33 @@ addBookToLibrary("420", "Lawd Mercy", 1511, false);
 console.log(myLibrary);
 
 // append books to #book-container //
-
-// select where items will be displayed
-const bookContainer = document.getElementById("book-container");
-//loop through the myLibrary array
-myLibrary.forEach((book) => {
-  const newBookDiv = document.createElement("div"); //create the div for each book
-  newBookDiv.className = "books"; //give each div a class
-  //add the book info to the div 
+function displayBook(book) {
+  const newBookDiv = document.createElement("div");
+  newBookDiv.className = "books";
   newBookDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages. Read: ${book.read}`;
   bookContainer.appendChild(newBookDiv);
+}
+
+myLibrary.forEach(displayBook);
+
+
+const bookFormButton = document.getElementById("new-book-btn");
+const bookForm = document.getElementById("book-form");
+
+//add functionality to Add Book Button when clicked
+bookFormButton.addEventListener("click", function () {
+  bookForm.classList.toggle("hidden");
 });
 
+
+//add functionality to form submit Button when clicked
+bookForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const title = document.getElementById("title").value;
+  const author = document.getElementById("author").value;
+  const pages = document.getElementById("pages").value;
+  const read = document.getElementById("read").checked;
+  addBookToLibrary(title, author, pages, read);
+  displayBook(newBook);
+  bookForm.reset();
+});
