@@ -12,7 +12,7 @@ function Book(title, author, pages, read) {
 }
 
 // Prototype method to toggle read status
-Book.prototype.toggleReadStatus = function() {
+Book.prototype.toggleReadStatus = function () {
   this.read = !this.read;
 };
 // -------------------------------------------------------------------------
@@ -41,7 +41,14 @@ function displayBook(book) {
   deleteBtn.textContent = "Delete";
   deleteBtn.setAttribute("data-id", book.id);
 
-  
+  const toggleBtn = document.createElement("button");
+  toggleBtn.textContent = "Toggle Read Status";
+
+  toggleBtn.addEventListener("click", () => {
+    book.toggleReadStatus();
+    renderBooks(); // re-render to show updated status
+  });
+
   deleteBtn.addEventListener("click", function () {
     const idToRemove = this.getAttribute("data-id");
     const index = myLibrary.findIndex((b) => b.id === idToRemove);
@@ -58,6 +65,7 @@ function displayBook(book) {
       <p>Status: ${book.read ? "Read" : "Not Read"}</p>
     `;
 
+  newBookDiv.appendChild(toggleBtn);
   newBookDiv.appendChild(deleteBtn);
   bookContainer.appendChild(newBookDiv);
 }
@@ -67,7 +75,6 @@ function renderBooks() {
   bookContainer.innerHTML = ""; // clear existing DOM
   myLibrary.forEach(displayBook); // re-render
 }
-
 
 // -------------------------------------------------------------------------
 const bookFormButton = document.getElementById("new-book-btn");
@@ -88,7 +95,7 @@ bookForm.addEventListener("submit", function (event) {
   const read = document.getElementById("read").checked;
 
   addBookToLibrary(title, author, pages, read);
-  renderBooks(); 
+  renderBooks();
   bookForm.reset();
 });
 
