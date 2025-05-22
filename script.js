@@ -10,6 +10,11 @@ function Book(title, author, pages, read) {
     (this.pages = pages),
     (this.read = read);
 }
+
+// Prototype method to toggle read status
+Book.prototype.toggleReadStatus = function() {
+  this.read = !this.read;
+};
 // -------------------------------------------------------------------------
 // create new instance of books and add to mylibrary array
 function addBookToLibrary(title, author, pages, read) {
@@ -46,7 +51,13 @@ function displayBook(book) {
     renderBooks(); // re-render the list
   });
 
-  newBookDiv.textContent = `${book.title} by ${book.author}, ${book.pages} pages. Read: ${book.read}`;
+  newBookDiv.innerHTML = `
+      <h3>${book.title}</h3>
+      <p>Author: ${book.author}</p>
+      <p>Pages: ${book.pages}</p>
+      <p>Status: ${book.read ? "Read" : "Not Read"}</p>
+    `;
+
   newBookDiv.appendChild(deleteBtn);
   bookContainer.appendChild(newBookDiv);
 }
